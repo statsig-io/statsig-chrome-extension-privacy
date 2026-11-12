@@ -10,7 +10,7 @@ Statsig Internal is a Chrome extension for Statsig and Amplitude employees, dist
 
 ## Where data goes
 
-The extension talks to one server: www.statsig.me, Statsig's internal tools site, using your existing statsig.me sign-in. It also downloads reward images from raw.githubusercontent.com, which receives no user data.
+The extension talks to one server: www.statsig.me, Statsig's internal tools site, using your existing statsig.me sign-in. It also downloads reward images from raw.githubusercontent.com, which receives no user data. When you send a dogfood report, www.statsig.me files it as an issue in Linear, Statsig's issue tracker; that is the only case where data you send leaves Statsig's own systems.
 
 ## What the extension handles, and why
 
@@ -26,6 +26,8 @@ The extension talks to one server: www.statsig.me, Statsig's internal tools site
 | The client SDK key of a page you inspect | Showing which Statsig customer owns it | Only while SDK Inspector shows that page: after you click Inspect, pick "Inspect the Statsig SDK on this page" from the right-click menu, or open a site you set to always inspect. Only the `client-` key (already public in the page) is sent to www.statsig.me; server and console keys are never sent. Answers are cached for 10 minutes in session storage |
 | The address of your current tab, when you use the Customer card | Working out which customer the page is about | Read and parsed in your browser. Only one token is sent to www.statsig.me per lookup: an Unthread conversation ID, a Statsig project ID taken from a console or intern address, or an email domain you type (the email is reduced to its domain in your browser). The page address, title and text are never sent. Personal email domains, Statsig and Amplitude domains, and secret or console keys are refused locally |
 | Customer card results | Showing the customer card | Cached in session storage for 5 to 60 minutes. Your last 10 customers (ID and name) and a list of the requests the card made in the last 24 hours are also kept in session storage. Session storage is cleared when Chrome closes |
+| Dogfood reports: screenshot, title, notes, page address, project ID, browser, window size, the site's origin and the extension version | Filing a bug report you review and send | Nothing is sent until you click Send. The visible tab is captured only on Statsig sites (console, docs, statsig.com, statsig.me), and you can box, black out (burned into the pixels) or crop the screenshot first. You see the exact text and choose which parts go: screenshot, page address, project and environment (browser, window size and pixel ratio). Three facts always go with a report so it reaches the right team: the site's origin (for example https://console.statsig.com), the extension version, and whether the page was a console LoginAs session. The page address has token, code, key and similar values replaced with REDACTED and the part after # removed. Page text is never sent; the extension only checks the page for the LoginAs banner. A report whose text contains a server or console key is refused. On console pages in a LoginAs session (or where the extension cannot check), and on intern company pages, the screenshot starts unticked. On Send, one request goes to www.statsig.me, which files the issue in Linear with a "Reported by" line naming you and subscribes you to it |
+| Dogfood drafts and sends | Letting you finish a report and find what you filed | The draft and its screenshot stay in session storage, which Chrome clears when it closes; they are discarded on Send, on Discard, or once they are 2 hours old. Only your last team pick is kept in local storage. Your last 5 filed issues (issue ID, title and Linear link) and a list of the last 24 hours of sends, described by size and parts and never their text, are also kept in session storage |
 | Settings, recent lookups, opted-in sites, overrides, deploy watches | Remembering your choices | Your browser's local extension storage only. Overrides are deleted after 60 minutes, watches after 48 hours |
 | Feature on/off list from www.statsig.me | Letting Statsig turn a feature off without a release | Read about every 30 minutes with your sign-in; nothing else is sent. The answer (feature names and a message) is kept in local storage |
 
@@ -36,7 +38,7 @@ The use of information received from Google APIs and from your browser by this e
 ## What it does not do
 
 - No analytics, telemetry, advertising or tracking.
-- No data is sold, shared with third parties, or used for anything other than the features above.
+- No data is sold, shared with third parties, or used for anything other than the features above. The only outside service that receives data is Linear, and only for dogfood reports you choose to send.
 - No remote code. All code ships in the extension package.
 
 ## Your controls
@@ -44,6 +46,7 @@ The use of information received from Google APIs and from your browser by this e
 - Remove the extension in chrome://extensions to delete everything it stored.
 - Clear recent lookups and recent customers with the Clear buttons.
 - Remove sites from SDK Inspector in its Sites tab.
+- Untick any part of a dogfood report, or use Copy as Markdown instead of Send.
 
 ## Contact
 
