@@ -4,7 +4,7 @@ title: "Statsig Internal Chrome extension: privacy policy"
 
 # Statsig Internal Chrome extension: privacy policy
 
-Last updated: 2026-11-12
+Last updated: 2026-11-20
 
 Statsig Internal is a Chrome extension for Statsig and Amplitude employees, distributed privately to the Amplitude Google Workspace. This policy describes what it handles.
 
@@ -19,7 +19,7 @@ The extension talks to one server: www.statsig.me, Statsig's internal tools site
 | Your statsig.me session cookie | Authenticating requests to www.statsig.me | Sent only to www.statsig.me by Chrome. The extension never reads, stores or forwards it |
 | Your statsig.me email address | Fetching your own reward feed; shown in the popup | Read from www.statsig.me and sent back only to www.statsig.me to fetch your feed. Cached for up to 10 minutes in session storage |
 | Statsig IDs or client SDK keys you look up with Lens | Showing what the ID refers to | Only a validated ID or client key is sent to www.statsig.me. Secret and console keys are refused and never sent or stored |
-| Commands and company names you type in the Statsig bar | Running internal shortcuts and company search | Sent to www.statsig.me when you press Enter, or (company search) after 3 characters |
+| Commands and company names you type in the Statsig bar | Running internal shortcuts and company search | Sent to www.statsig.me only when you press Enter on a matching command or tool, or pick a suggestion (including "Send to bunnylol anyway"); company search sends the name after 3 characters. Server and console keys are never sent, not even inside a command |
 | Pull request numbers in statsig-io/statsig | Deploy status for Landed? | Sent to www.statsig.me when you click the chip or turn on auto-check |
 | Merge clicks on GitHub, status changes on Linear | Prompting an immediate check of your reward feed | Not sent anywhere; they only start a check of your own feed |
 | Statsig SDK state on pages you inspect | Showing evaluations and events in SDK Inspector | Stays in the tab. Never stored or sent |
@@ -28,7 +28,7 @@ The extension talks to one server: www.statsig.me, Statsig's internal tools site
 | Customer card results | Showing the customer card | Cached in session storage for 5 to 60 minutes. Your last 10 customers (ID and name) and a list of the requests the card made in the last 24 hours are also kept in session storage. Session storage is cleared when Chrome closes |
 | Dogfood reports: screenshot, title, notes, page address, project ID, browser, window size, the site's origin and the extension version | Filing a bug report you review and send | Nothing is sent until you click Send. The visible tab is captured only on Statsig sites (console, docs, statsig.com, statsig.me), and you can box, black out (burned into the pixels) or crop the screenshot first. You see the exact text and choose which parts go: screenshot, page address, project and environment (browser, window size and pixel ratio). Three facts always go with a report so it reaches the right team: the site's origin (for example https://console.statsig.com), the extension version, and whether the page was a console LoginAs session. The page address has token, code, key and similar values replaced with REDACTED and the part after # removed. Page text is never sent; the extension only checks the page for the LoginAs banner. A report whose text contains a server or console key is refused. On console pages in a LoginAs session (or where the extension cannot check), and on intern company pages, the screenshot starts unticked. On Send, one request goes to www.statsig.me, which files the issue in Linear with a "Reported by" line naming you and subscribes you to it |
 | Dogfood drafts and sends | Letting you finish a report and find what you filed | The draft and its screenshot stay in session storage, which Chrome clears when it closes; they are discarded on Send, on Discard, or once they are 2 hours old. Only your last team pick is kept in local storage. Your last 5 filed issues (issue ID, title and Linear link) and a list of the last 24 hours of sends, described by size and parts and never their text, are also kept in session storage |
-| Settings, recent lookups, opted-in sites, overrides, deploy watches | Remembering your choices | Your browser's local extension storage only. Overrides are deleted after 60 minutes, watches after 48 hours |
+| Settings, recent lookups, opted-in sites, overrides, deploy watches, rewards waiting to be shown | Remembering your choices | Your browser's local extension storage only. Overrides are deleted after 60 minutes, watches after 48 hours, and a reward once a page has shown it. Which tab is showing a reward is kept in session storage |
 | Feature on/off list from www.statsig.me | Letting Statsig turn a feature off without a release | Read about every 30 minutes with your sign-in; nothing else is sent. The answer (feature names and a message) is kept in local storage |
 
 ## Limited Use
